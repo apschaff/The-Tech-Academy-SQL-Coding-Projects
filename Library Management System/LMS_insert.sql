@@ -62,7 +62,8 @@ INSERT INTO borrower
 	('Carter Jacobson', '1412 Happy Hwy, Yuba CA, 97314', '562-942-4582'),
 	('Donna Rickkets', '9990 Denali Pkwy, Billings MT, 59014', '145-898-5283'),
 	('Bret Stevens', '8267 Lilly Ln, Wichita KS, 62998', '299-972-8721'),
-	('London Garner', '3287 Jerry Dean Dr, Olathe KS, 64127', '396-424-0657')
+	('London Garner', '3287 Jerry Dean Dr, Olathe KS, 64127', '396-424-0657'),
+	('Jaron Schmidt', '941 Martin Wy, Nowhere MT, 73550', '587-337-1544')
 ;
 
 SELECT * FROM borrower;
