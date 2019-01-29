@@ -1,0 +1,59 @@
+USE db_lms
+GO
+
+/*
+IF Exists (SELECT 1 FROM INFORMATION_SCHEMA.TABLES book_copies)
+	DROP TABLE library_branch, books, borrower, publisher, book_copies, book_loans, book_authors;
+*/
+
+DROP TABLE book_copies;
+DROP TABLE book_loans;
+DROP TABLE book_authors;
+DROP TABLE books;
+DROP TABLE borrower;
+DROP TABLE library_branch;
+DROP TABLE publisher;
+
+CREATE TABLE library_branch (
+	BranchID INT PRIMARY KEY NOT NULL IDENTITY(300, 1),
+	BranchName VARCHAR(30) NOT NULL,
+	BranchAddress VARCHAR(50) NOT NULL,
+);
+
+CREATE TABLE books (
+	BookID INT PRIMARY KEY NOT NULL IDENTITY (100,1),
+	Title VARCHAR(50) NOT NULL,
+	PublisherName VARCHAR(50) NOT NULL,
+);
+
+CREATE TABLE borrower (
+	CardNo INT PRIMARY KEY NOT NULL IDENTITY (200,1),
+	Name VARCHAR(30) NOT NULL,
+	BorrowerAddress VARCHAR(50) NOT NULL,
+	Phone CHAR(12)  NOT NULL, --US phone number with dashes is 12 characters
+);
+
+CREATE TABLE publisher (
+	PublisherName VARCHAR(30) PRIMARY KEY NOT NULL,
+	PublisherAddress VARCHAR(50) NOT NULL,
+	Phone CHAR(12) NOT NULL,
+);
+
+CREATE TABLE book_copies (
+	BookID INT NOT NULL CONSTRAINT fk_BookID_copies FOREIGN KEY REFERENCES books(BookID) ON UPDATE CASCADE ON DELETE CASCADE,
+	BranchID INT NOT NULL CONSTRAINT fk_BranchID_copies FOREIGN KEY REFERENCES library_branch(BranchID) ON UPDATE CASCADE ON DELETE CASCADE,
+	NumberOfCopies INT NOT NULL,
+);
+
+CREATE TABLE book_loans (
+	BookID INT NOT NULL CONSTRAINT fk_BookID_loans FOREIGN KEY REFERENCES books(BookID) ON UPDATE CASCADE ON DELETE CASCADE,
+	BranchID INT NOT NULL CONSTRAINT fk_BranchID_loans FOREIGN KEY REFERENCES library_branch(BranchID) ON UPDATE CASCADE ON DELETE CASCADE,
+	CardNo INT NOT NULL CONSTRAINT fk_CardNo FOREIGN KEY REFERENCES borrower(CardNo) ON UPDATE CASCADE ON DELETE CASCADE,
+	DateOut DATE NOT NULL,
+	DateDue DATE NOT NULL,
+);
+
+CREATE TABLE book_authors (
+	BookID INT NOT NULL CONSTRAINT fk_BookID FOREIGN KEY REFERENCES books(BookID) ON UPDATE CASCADE ON DELETE CASCADE,
+	AuthorName VARCHAR(30) NOT NULL,
+);
