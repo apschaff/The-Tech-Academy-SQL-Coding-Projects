@@ -1,1 +1,2 @@
-CREATE DATABASE library_management_system
+CREATE DATABASE db_lms
+GO

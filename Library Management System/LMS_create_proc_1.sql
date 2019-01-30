@@ -1,7 +1,7 @@
 USE db_lms
 GO
 
-CREATE PROCEDURE dbo.uspGetCopies1 @City nvarchar(30)
+CREATE PROCEDURE dbo.uspGetCopies1
 AS
 
 SELECT NumberOfCopies
